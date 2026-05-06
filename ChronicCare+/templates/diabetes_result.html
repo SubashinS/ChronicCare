@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction Result - ChronicCare+</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Additional styles for the structured display */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .left-section {
+            flex: 1;
+            margin-right: 2rem;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #f3c4fb, #a5d8ff);
+        }
+
+        .right-section {
+            width: 30%;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #f3c4fb, #a5d8ff);
+        }
+
+        h2, h3 {
+            color: #6d6875;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background: linear-gradient(135deg, #d4a5ff, #a5d8ff);
+            color: white;
+        }
+
+        table td {
+            background: #f9f1ff;
+        }
+
+        .formula-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ddd;
+            background: linear-gradient(135deg, #e3f2f9, #f9e6ff);
+        }
+
+        .graph-container img {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .prediction-result {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 1rem;
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #a5d8ff, #ffe6e6);
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .submit-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .submit-container a {
+            font-size: 1rem;
+            color: #333;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #a5d8ff, #ffe6e6);
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .submit-container a:hover {
+            background: linear-gradient(135deg, #d4a5ff, #ffe6e6);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Diabetes Prediction Result</h1>
+    </header>
+
+    <div class="container">
+        <!-- Left Section: Prediction Table and Result -->
+        <div class="left-section">
+            <h2>Prediction Scores from Different Models</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Prediction</th>
+                        <th>Confidence</th>
+                        <th>Insights</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Logistic Regression</td>
+                        <td>{{ 'Positive' if logistic_prediction>= 0.5 else 'Negative' }}</td>
+                        <td>{{ logistic_confidence }}%</td>
+                        <td>{{ logistic_insights }}</td>
+                    </tr>
+                    <tr>
+                        <td>Random Forest</td>
+                        <td>{{ 'Positive' if random_forest_prediction>=0.3 else 'Negative' }}</td>
+                        <td>{{ random_forest_confidence }}%</td>
+                        <td>{{ random_forest_insights }}</td>
+                    </tr>
+                    <tr>
+                        <td>XGBoost</td>
+                        <td>{{ 'Positive' if xgboost_prediction>=0.3 else 'Negative' }}</td>
+                        <td>{{ xgboost_confidence }}%</td>
+                        <td>{{ xgboost_insights }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="prediction-result">
+                <h3>Diabetes Prediction Result</h3>
+                <p>{{ diabetes_result }}</p>
+            </div>
+        </div>
+
+        <!-- Right Section: Formula Box and Prediction Graph -->
+        <div class="right-section">
+            <div class="formula-box">
+                <h3>Formula for Diabetes Detection</h3>
+                <p>Diabetes = (age * weight_factor) + (bmi * bmi_factor) + (glucose_level * glucose_factor) - (activity_factor)</p>
+            </div>
+
+            <div class="graph-container">
+                <h3>Model Prediction Comparison</h3>
+                <img src="data:image/png;base64,{{ graph_url }}" alt="Prediction Comparison Graph">
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-container">
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>

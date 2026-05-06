@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroke Prediction Form - ChronicCare+</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #f8bbd0, #e1bee7);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        header {
+            background: linear-gradient(45deg, #add8e6, #f8bbd0);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            color: #5f4b8b;
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .section {
+            background: linear-gradient(135deg, #a6c8e1, #f5c3d7);
+            padding: 20px; /* Increased padding to make form box 25% bigger */
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 63%; /* Increased width by 25% */
+            margin: 0 auto;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 2em; /* Reduced font size */
+            color: #4f4a7b;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: slideIn 1s ease-out;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Made the gap between form fields smaller */
+            animation: fadeInForm 1.5s ease-out;
+        }
+
+        label {
+            font-size: 1.1em;
+            color: #6e5b8b;
+        }
+
+        input, select {
+            padding: 8px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: #b4a1db;
+            outline: none;
+            transform: scale(1.05);
+        }
+
+        button {
+            background: linear-gradient(135deg, #a6c8e1, #f5c3d7);
+            color: white;
+            padding: 12px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #f3b5d6, #f0a9b8);
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            background: #f0e6f6;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #6f6a88;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInForm {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ChronicCare+</h1>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h2>Stroke Risk Prediction</h2>
+            <form action="{{ url_for('predict_stroke') }}" method="post">
+                <label for="sex">Sex (0: Female, 1: Male):</label>
+                <input type="number" id="sex" name="sex" min="0" max="1" required><br>
+                
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required><br>
+                
+                <label for="hypertension">Hypertension (0: No, 1: Yes):</label>
+                <input type="number" id="hypertension" name="hypertension" min="0" max="1" required><br>
+                
+                <label for="heart_disease">Heart Disease (0: No, 1: Yes):</label>
+                <input type="number" id="heart_disease" name="heart_disease" min="0" max="1" required><br>
+                
+                <label for="ever_married">Ever Married (0: No, 1: Yes):</label>
+                <input type="number" id="ever_married" name="ever_married" min="0" max="1" required><br>
+                
+                <label for="work_type">Work Type (0: Children, 1: Govt Job, 2: Never Worked, 3: Private, 4: Self-employed):</label>
+                <input type="number" id="work_type" name="work_type" min="0" max="4" required><br>
+                
+                <label for="Residence_type">Residence Type (0: Rural, 1: Urban):</label>
+                <input type="number" id="Residence_type" name="Residence_type" min="0" max="1" required><br>
+                
+                <label for="avg_glucose_level">Average Glucose Level:</label>
+                <input type="number" id="avg_glucose_level" name="avg_glucose_level" step="0.1" required><br>
+                
+                <label for="bmi">BMI:</label>
+                <input type="number" id="bmi" name="bmi" step="0.1" required><br>
+                
+                <label for="smoking_status">Smoking Status (0: Never Smoked, 1: Formerly Smoked, 2: Smokes):</label>
+                <input type="number" id="smoking_status" name="smoking_status" min="0" max="2" required><br>
+
+                <button type="submit">Predict Stroke Risk</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ChronicCare+</p>
+    </footer>
+</body>
+</html>

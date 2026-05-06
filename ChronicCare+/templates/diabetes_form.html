@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction Form - ChronicCare+</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <style>
+        /* Flexbox for centering the form and making it responsive */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 720px; /* Increased by 20% from the previous 600px */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Flexbox for input groups to align labels and inputs properly */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .input-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            padding: 8px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .input-group small {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .submit-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .submit-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* Small adjustments for small screens */
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Diabetes Prediction Form</h1>
+    </header>
+
+    <div class="form-container">
+        <form method="POST" action="{{ url_for('predict_diabetes') }}">
+            <div class="input-group">
+                <label for="age">Age (13-level category):</label>
+                <input type="number" name="age" id="age" required>
+                <small>1 = 18-24, 2 = 25-29, 3 = 30-34, 4 = 35-39, 5 = 40-44, 6 = 45-49, 7 = 50-54, 8 = 55-59, 9 = 60-64, 10 = 65-69, 11 = 70-74, 12 = 75-79, 13 = 80 or older.</small>
+            </div>
+            <div class="input-group">
+                <label for="sex">Sex (1: male; 0: female):</label>
+                <input type="number" name="sex" id="sex" required>
+            </div>
+            <div class="input-group">
+                <label for="highchol">High Cholesterol (0 = no, 1 = yes):</label>
+                <input type="number" name="highchol" id="highchol" required>
+            </div>
+            <div class="input-group">
+                <label for="cholcheck">Cholesterol Check (0 = no, 1 = yes):</label>
+                <input type="number" name="cholcheck" id="cholcheck" required>
+            </div>
+            <div class="input-group">
+                <label for="bmi">BMI (Body Mass Index):</label>
+                <input type="number" name="bmi" id="bmi" step="0.1" required>
+            </div>
+            <div class="input-group">
+                <label for="smoker">Smoker (0 = no, 1 = yes):</label>
+                <input type="number" name="smoker" id="smoker" required>
+                <small>Have you smoked at least 100 cigarettes in your life? (Note: 5 packs = 100 cigarettes)</small>
+            </div>
+            <div class="input-group">
+                <label for="heartdiseaseorattack">Heart Disease or Attack (0 = no, 1 = yes):</label>
+                <input type="number" name="heartdiseaseorattack" id="heartdiseaseorattack" required>
+            </div>
+            <div class="input-group">
+                <label for="physactivity">Physical Activity (0 = no, 1 = yes):</label>
+                <input type="number" name="physactivity" id="physactivity" required>
+                <small>Physical activity in past 30 days (not including job)</small>
+            </div>
+            <div class="input-group">
+                <label for="fruits">Fruits (0 = no, 1 = yes):</label>
+                <input type="number" name="fruits" id="fruits" required>
+                <small>Consume fruit 1 or more times per day</small>
+            </div>
+            <div class="input-group">
+                <label for="veggies">Vegetables (0 = no, 1 = yes):</label>
+                <input type="number" name="veggies" id="veggies" required>
+                <small>Consume vegetables 1 or more times per day</small>
+            </div>
+            <div class="input-group">
+                <label for="hvyalcoholconsump">Heavy Alcohol Consumption (0 = no, 1 = yes):</label>
+                <input type="number" name="hvyalcoholconsump" id="hvyalcoholconsump" required>
+                <small>(Adult men >= 14 drinks per week, adult women >= 7 drinks per week)</small>
+            </div>
+            <div class="input-group">
+                <label for="genhlth">General Health (1-5 scale):</label>
+                <input type="number" name="genhlth" id="genhlth" required>
+                <small>1 = excellent, 5 = poor</small>
+            </div>
+            <div class="input-group">
+                <label for="menthlth">Mental Health (Days of poor mental health in the past 30 days):</label>
+                <input type="number" name="menthlth" id="menthlth" required>
+                <small>Scale 1-30 days</small>
+            </div>
+            <div class="input-group">
+                <label for="physhlth">Physical Health (Days of physical illness or injury in the past 30 days):</label>
+                <input type="number" name="physhlth" id="physhlth" required>
+                <small>Scale 1-30 days</small>
+            </div>
+            <div class="input-group">
+                <label for="diffwalk">Difficulty Walking (0 = no, 1 = yes):</label>
+                <input type="number" name="diffwalk" id="diffwalk" required>
+                <small>Do you have serious difficulty walking or climbing stairs?</small>
+            </div>
+            <div class="input-group">
+                <label for="stroke">Stroke (0 = no, 1 = yes):</label>
+                <input type="number" name="stroke" id="stroke" required>
+                <small>Have you ever had a stroke?</small>
+            </div>
+            <div class="input-group">
+                <label for="highbp">High Blood Pressure (0 = no, 1 = yes):</label>
+                <input type="number" name="highbp" id="highbp" required>
+            </div>
+            <div class="submit-container">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

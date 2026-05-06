@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypertension Prediction Form - ChronicCare+</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #f8bbd0, #e1bee7);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        header {
+            background: linear-gradient(45deg, #add8e6, #f8bbd0);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            color: #5f4b8b;
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .section {
+            background: linear-gradient(135deg, #a6c8e1, #f5c3d7);
+            padding: 20px; /* Increased padding to make form box 25% bigger */
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 63%; /* Increased width by 25% */
+            margin: 0 auto;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 2em; /* Reduced font size */
+            color: #4f4a7b;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: slideIn 1s ease-out;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Made the gap between form fields smaller */
+            animation: fadeInForm 1.5s ease-out;
+        }
+
+        label {
+            font-size: 1.1em;
+            color: #6e5b8b;
+        }
+
+        input, select {
+            padding: 8px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: #b4a1db;
+            outline: none;
+            transform: scale(1.05);
+        }
+
+        button {
+            background: linear-gradient(135deg, #a6c8e1, #f5c3d7);
+            color: white;
+            padding: 12px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #f3b5d6, #f0a9b8);
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            background: #f0e6f6;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #6f6a88;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInForm {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ChronicCare+</h1>
+    </header>
+    
+    <div class="container">
+        <section class="section">
+            <h2>Hypertension Risk Prediction</h2>
+            <form action="{{ url_for('predict_hypertension') }}" method="post">
+                <label for="age">Age (years):</label>
+                <input type="number" id="age" name="age" required><br>
+                <label for="sex">Sex (0 = Female, 1 = Male):</label>
+                <input type="number" id="sex" name="sex" required><br>
+                <label for="cp">Chest Pain Type:</label>
+                <select id="cp" name="cp">
+                    <option value="0">Typical Angina</option>
+                    <option value="1">Atypical Angina</option>
+                    <option value="2">Non-Anginal Pain</option>
+                    <option value="3">Asymptomatic</option>
+                </select><br>
+                <label for="trestbps">Resting Blood Pressure (mm Hg):</label>
+                <input type="number" id="trestbps" name="trestbps" required><br>
+                <label for="chol">Cholesterol Level (mg/dl):</label>
+                <input type="number" id="chol" name="chol" required><br>
+                <label for="fbs">Fasting Blood Sugar (1 = > 120 mg/dl, 0 = <= 120 mg/dl):</label>
+                <input type="number" id="fbs" name="fbs" required><br>
+                <label for="restecg">Resting Electrocardiographic Results:</label>
+                <select id="restecg" name="restecg">
+                    <option value="0">Normal</option>
+                    <option value="1">Having ST-T Wave Abnormality</option>
+                    <option value="2">Showing Possible Left Ventricular Hypertrophy</option>
+                </select><br>
+                <label for="thalach">Maximum Heart Rate Achieved:</label>
+                <input type="number" id="thalach" name="thalach" required><br>
+                <label for="exang">Exercise Induced Angina (1 = Yes, 0 = No):</label>
+                <input type="number" id="exang" name="exang" required><br>
+                <label for="oldpeak">Depression Induced by Exercise Relative to Rest:</label>
+                <input type="number" id="oldpeak" name="oldpeak" step="0.1" required><br>
+                <label for="slope">Slope of the Peak Exercise ST Segment:</label>
+                <select id="slope" name="slope">
+                    <option value="0">Upsloping</option>
+                    <option value="1">Flat</option>
+                    <option value="2">Downsloping</option>
+                </select><br>
+                <label for="ca">Number of Major Vessels Colored by Fluoroscopy:</label>
+                <input type="number" id="ca" name="ca" required><br>
+                <label for="thal">Thalassemia:</label>
+                <select id="thal" name="thal">
+                    <option value="3">Normal</option>
+                    <option value="6">Fixed Defect</option>
+                    <option value="7">Reversible Defect</option>
+                </select><br>
+                <button type="submit">Predict Hypertension Risk</button>
+            </form>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 ChronicCare+</p>
+    </footer>
+</body>
+</html>

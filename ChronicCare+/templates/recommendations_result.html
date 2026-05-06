@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations - ChronicCare+</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>ChronicCare+</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('diabetes_form') }}">Diabetes</a>
+            <a href="{{ url_for('hypertension_form') }}">Hypertension</a>
+            <a href="{{ url_for('stroke_form') }}">Stroke</a>
+            <a href="{{ url_for('recommendations') }}">Recommendations</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h2>Personalized Recommendations</h2>
+            <ul>
+                {% for intervention, score in recommendations %}
+                <li><strong>{{ intervention }}</strong>: Score {{ score }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Graphical Insights</h2>
+            <div id="graph-container">
+                <canvas id="recommendationGraph"></canvas>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 ChronicCare+</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('recommendationGraph').getContext('2d');
+        const chartData = JSON.parse('{{ graph_data | tojson | safe }}');
+        const recommendationChart = new Chart(ctx, {
+            type: 'radar',
+            data: chartData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Health Care Center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+        color: black;
+        font-family: Arial, sans-serif;
+      }
+
+      .navbar {
+        background: linear-gradient(135deg, #9face6, #74ebd5);
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.9);
+        color: black;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-header {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+      }
+
+      .message {
+        text-align: center;
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Health Center</a>
+      </div>
+    </nav>
+
+    <!-- Main Form -->
+    <div class="container my-4">
+      <h1 class="text-center">Health Care Center</h1>
+
+      {% if message %}
+      <div class="message">{{ message }}</div>
+      {% endif %}
+
+      <form action="/recommendations" method="post">
+        <div class="form-group">
+          <label for="symptoms">Enter Symptoms:</label>
+          <input type="text" class="form-control" id="symptoms" name="symptoms" placeholder="e.g., headache, fever">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      </form>
+    </div>
+
+    <!-- Results Section -->
+    {% if predicted_disease %}
+    <div class="container mt-4">
+      <h2 class="text-center">Results</h2>
+      <div class="d-flex justify-content-center flex-wrap">
+        <button class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#diseaseModal">Disease</button>
+        <button class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#descriptionModal">Description</button>
+        <button class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#precautionModal">Precaution</button>
+        <button class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#medicationsModal">Medications</button>
+        <button class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#workoutsModal">Workouts</button>
+        <button class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#dietsModal">Diets</button>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Modals -->
+    <div class="modal fade" id="diseaseModal" tabindex="-1" aria-labelledby="diseaseModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="diseaseModalLabel">Disease</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ predicted_disease }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="descriptionModalLabel">Description</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ dis_des }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="precautionModal" tabindex="-1" aria-labelledby="precautionModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="precautionModalLabel">Precaution</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {% for precaution in my_precautions %}
+            <p>{{ precaution }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="medicationsModal" tabindex="-1" aria-labelledby="medicationsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="medicationsModalLabel">Medications</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ medications }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="workoutsModalLabel">Workouts</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ workout }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="dietsModalLabel">Diets</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ my_diet }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

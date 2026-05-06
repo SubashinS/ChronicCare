@@ -1,0 +1,162 @@
+/* Importing Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* General Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f9f1ff, #ffe6e6);
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+    animation: fadeInBackground 1.2s ease-in-out;
+}
+
+/* Fade-In Background Animation */
+@keyframes fadeInBackground {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Header Styling */
+header {
+    background: linear-gradient(90deg, #a5d8ff, #d4a5ff);
+    color: #fff;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 4px solid #f3c4fb;
+    animation: slideDown 1s ease-in-out;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+    font-weight: 600;
+}
+
+/* Slide Down Animation for Header */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Form Container Styling */
+.form-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #f3c4fb, #a5d8ff);
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Fade In Up Animation for Form Container */
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Input Group Styling */
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    flex-basis: 25%;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6d6875;
+}
+
+.input-group input {
+    flex-grow: 1;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #f9f1ff;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #a5d8ff;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(165, 216, 255, 0.5);
+}
+
+/* Button Styling */
+button {
+    background: linear-gradient(90deg, #a8dadc, #ffe6e6);
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #d4a5ff, #ffe6e6);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Input Groups */
+@media (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group label {
+        margin-bottom: 0.5rem;
+    }
+
+    .input-group input {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Centered Button */
+.submit-container {
+    text-align: center;
+}
+
+/* Subtle Animations */
+.input-group input {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

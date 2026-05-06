@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Disease Prediction Form - ChronicCare+</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #f8bbd0, #e1bee7);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        header {
+            background: linear-gradient(45deg, #add8e6, #f8bbd0);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            color: #5f4b8b;
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .section {
+            background: linear-gradient(135deg, #a6c8e1, #f5c3d7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 63%;
+            margin: 0 auto;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #4f4a7b;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: slideIn 1s ease-out;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeInForm 1.5s ease-out;
+        }
+
+        label {
+            font-size: 1.1em;
+            color: #6e5b8b;
+        }
+
+        input, select {
+            padding: 8px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: #b4a1db;
+            outline: none;
+            transform: scale(1.05);
+        }
+
+        button {
+            background: linear-gradient(135deg, #a6c8e1, #f5c3d7);
+            color: white;
+            padding: 12px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #f3b5d6, #f0a9b8);
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            background: #f0e6f6;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #6f6a88;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInForm {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ChronicCare+</h1>
+    </header>
+    
+    <div class="container">
+        <section class="section">
+            <h2>Kidney Disease Prediction</h2>
+            <form action="{{ url_for('predict_kidney') }}" method="post">
+                <label for="age">Age (years):</label>
+                <input type="number" id="age" name="age" required><br>
+
+                <label for="bp">Blood Pressure (mm Hg):</label>
+                <input type="number" id="bp" name="bp" required><br>
+
+                <label for="sg">Specific Gravity:</label>
+                <input type="number" step="0.01" id="sg" name="sg" required><br>
+
+                <label for="al">Albumin Level:</label>
+                <input type="number" id="al" name="al" required><br>
+
+                <label for="su">Sugar Level:</label>
+                <input type="number" id="su" name="su" required><br>
+
+                <label for="rbc">Red Blood Cells:</label>
+                <select id="rbc" name="rbc" required>
+                    <option value="normal">Normal</option>
+                    <option value="abnormal">Abnormal</option>
+                </select><br>
+
+                <label for="pc">Pus Cells:</label>
+                <select id="pc" name="pc" required>
+                    <option value="normal">Normal</option>
+                    <option value="abnormal">Abnormal</option>
+                </select><br>
+
+                <label for="pcc">Pus Cell Clumps:</label>
+                <select id="pcc" name="pcc" required>
+                    <option value="present">Present</option>
+                    <option value="notpresent">Not Present</option>
+                </select><br>
+
+                <label for="ba">Bacteria:</label>
+                <select id="ba" name="ba" required>
+                    <option value="present">Present</option>
+                    <option value="notpresent">Not Present</option>
+                </select><br>
+
+                <label for="bgr">Blood Glucose (Random):</label>
+                <input type="number" id="bgr" name="bgr" required><br>
+
+                <label for="bu">Blood Urea:</label>
+                <input type="number" id="bu" name="bu" required><br>
+
+                <label for="sc">Serum Creatinine:</label>
+                <input type="number" id="sc" name="sc" required><br>
+
+                <label for="sod">Sodium Level:</label>
+                <input type="number" id="sod" name="sod" required><br>
+
+                <label for="pot">Potassium Level:</label>
+                <input type="number" id="pot" name="pot" required><br>
+
+                <label for="hemo">Hemoglobin Level:</label>
+                <input type="number" step="0.1" id="hemo" name="hemo" required><br>
+
+                <label for="pcv">Packed Cell Volume:</label>
+                <input type="number" id="pcv" name="pcv" required><br>
+
+                <label for="wc">White Blood Cell Count:</label>
+                <input type="number" id="wc" name="wc" required><br>
+
+                <label for="rc">Red Blood Cell Count:</label>
+                <input type="number" id="rc" name="rc" required><br>
+
+                <label for="htn">Hypertension (Yes/No):</label>
+                <select id="htn" name="htn" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select><br>
+
+                <label for="dm">Diabetes Mellitus (Yes/No):</label>
+                <select id="dm" name="dm" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select><br>
+
+                <label for="cad">Coronary Artery Disease (Yes/No):</label>
+                <select id="cad" name="cad" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select><br>
+
+                <label for="appet">Appetite Condition:</label>
+                <select id="appet" name="appet" required>
+                    <option value="good">Good</option>
+                    <option value="poor">Poor</option>
+                </select><br>
+
+                <label for="pe">Pedal Edema (Yes/No):</label>
+                <select id="pe" name="pe" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select><br>
+
+                <label for="ane">Anemia (Yes/No):</label>
+                <select id="ane" name="ane" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select><br>
+
+                <button type="submit">Predict Kidney Disease Risk</button>
+            </form>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 ChronicCare+</p>
+    </footer>
+</body>
+</html>
